@@ -81,3 +81,11 @@ Doesn't currently add macros to command pallete (have to use keybindings).
 ### 1.0.0
 
 Initial release of Macros
+
+### TODO
+
+[ ] make all things disposable
+[ ] documentation
+[ ] check async seriality
+[ ] pass on results to next func?
+[ ] pass filename to run easily scripts
