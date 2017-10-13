@@ -1,10 +1,10 @@
 {
-  "name": "keyval",
-  "displayName": "kEyVAL",
-  "description": "bind custom code to keystrokes",
-  "version": "1.2.0",
+  "name": "do",
+  "displayName": "do",
+  "description": "bind custom code to keystrokes and startup",
+  "version": "1.0.0",
   "publisher": "jmanuels",
-  "repository": "https://github.com/d3ck-net/keyval",
+  "repository": "https://github.com/d3ck-net/do",
   "engines": {
     "vscode": "^1.5.0"
   },
@@ -16,10 +16,10 @@
   ],
   "main": "./extension",
   "contributes": {
-    "commands":[
+    "commands": [
       {
         "command": "do",
-        "title":"do",
+        "title": "do",
         "category": "core"
       }
     ],
@@ -28,16 +28,16 @@
       "title": "Macros configuration",
       "properties": {
         "do.defaultType": {
-          "type":"string",
-          "default":"terminal",
+          "type": "string",
+          "default": "terminal",
           "description": "the default action type to use when passing raw strings"
         },
-        "do.macros":{
-          "type":"object",
+        "do.macros": {
+          "type": "object",
           "description": "define a map of actionLists to be used inside other actions"
         },
-        "do.onStart":{
-          "type":"array",
+        "do.onStart": {
+          "type": "array",
           "description": "a list of actions to run on startup"
         }
       }
@@ -45,7 +45,7 @@
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "webpack":"echo webpack"
+    "webpack": "echo webpack"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
@@ -54,8 +54,8 @@
     "mocha": "^2.3.3",
     "typescript": "^2.0.3",
     "vscode": "^1.0.0"
-},
-"dependencies": {
+  },
+  "dependencies": {
     "async": "^2.5.0"
   }
 }

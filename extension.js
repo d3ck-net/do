@@ -4,20 +4,21 @@ const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');
 function resolveConfigVars(input) {
-    // "${workspaceFolder}" - the path of the folder opened in VS Code
-    // ${workspaceRootFolderName} - the name of the folder opened in VS Code without any slashes (/)
     const map = {
-        "${file}": vscode.window.activeTextEditor.document.fileName
+        "${file}": vscode.window.activeTextEditor.document.fileName,
+        "${fileDirname}": path.dirname(vscode.window.activeTextEditor.document.fileName),
+        "${workspaceFolder}":vscode.workspace.rootPath ? vscode.workspace.rootPath : "."
     };
-
+    
     Object.keys(map).forEach(needle => {
-      const replace = map[needle];
-      input = input.split(needle).join(replace);
+        const replace = map[needle];
+        input = input.split(needle).join(replace);
     })
+    //  - the path of the folder opened in VS Code
+    // ${workspaceRootFolderName} - the name of the folder opened in VS Code without any slashes (/)
     // ${relativeFile} - the current opened file relative to workspaceRoot
     // ${fileBasename} - the current opened file's basename
     // ${fileBasenameNoExtension} - the current opened file's basename with no file extension
-    // ${fileDirname} - the current opened file's dirname
     // ${fileExtname} - the current opened file's extension
     // ${cwd} - the task runner's current working directory on startup
     // ${lineNumber} 
@@ -25,6 +26,7 @@ function resolveConfigVars(input) {
 }
 
 let settings = {};
+let tempActions = {};
 
 vscode.window.onDidCloseTerminal(function({ action }) {
     delete action.terminal;
@@ -62,7 +64,8 @@ function dispatchAction(action, done, args, allCommands) {
             vscode.commands.executeCommand(action).then(done);
         } else {
             const type = settings.defaultType ||  "eval";
-            dispatchAction({ type, command: action }, done, args, allCommands);
+            tempActions[action] = tempActions[action] || { type, command: action };
+            dispatchAction(tempActions[action], done, args, allCommands);
         }
     } else if (typeof action === "object") {
         if (!action.command) {
@@ -78,7 +81,7 @@ function dispatchAction(action, done, args, allCommands) {
         if (action.type === 'shell') {
             cp.exec(action.command).on('exit', done);
         } else if (action.type === 'terminal') {
-            action.terminal = action.terminal || vscode.window.createTerminal("macro:" + action.command);
+            action.terminal = action.terminal || vscode.window.createTerminal("do:" + action.command);
             action.terminal.action = action;
             action.terminal.show();
             action.terminal.sendText(action.command);
@@ -89,13 +92,15 @@ function dispatchAction(action, done, args, allCommands) {
             done()
         } else if (action.type === 'task') {
             try {
-                const wsf = vscode.workspace.getWorkspaceFolder();
+                const wsf = vscode.workspace.rootPath || '.';
                 const p = path.join(wsf,".vscode","tasks.json");
                 const text = fs.readFileSync(p,"utf8");
+                const tasks = JSON.parse(text).tasks;
+                tasks.forEach(taks => {
+                });
             }
             catch(e){
-
-                vscode.window.showErrorMessage("do: not tasks defined");
+                vscode.window.showErrorMessage("do: no tasks defined in this workspace");
              }
             vscode.workspace.
             debugger

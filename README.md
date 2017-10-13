@@ -1,20 +1,28 @@
-# Macros
+# Do
 
-Brings simple, powerful custom macros support to VS Code.
-Made with <3 by [geddski](http://gedd.ski)
+Brings simple but powerful custom keycommands, macros and autostart services to VS Code.
+Rewritten by [Jan Manue Schlieper](http://audio.d3ck.net/about)
+Inspired by the <3 of [geddski](http://gedd.ski)
 
-See also [Level up your Coding with Macros](http://gedd.ski/post/level-up-coding-with-macros/) 
+## example
+
+
+```json
+
+```
 
 ## Create Custom Macros
 
 Create your own custom macros by adding them to your `settings.json` (Code|File > Preferences > User Settings)
 
-For example:
+settings:
 
 ```json
-"macros": {
+"do.defaultType":"terminal", // the default
+"do.macros": {
+    "openFile":
     "commentDown": [
-        "editor.action.copyLinesDownAction",
+        "editor.action.copyLinesDownAction", //
         "cursorUp",
         "editor.action.addCommentLine",
         "cursorDown"
@@ -73,19 +81,22 @@ MIT
 
 ## Known Issues
 
-Doesn't currently add macros to command pallete (have to use keybindings).
-
+You can create macros that call them selves, thus creating infinite loops.
+There is no security checking or any elaborate error feedback, so you can fuck things up badly (the evils of eval).
+With power comes responsebility ;)
 
 ## Release Notes
 
 ### 1.0.0
 
-Initial release of Macros
+Initial release of do
 
 ### TODO
 
-[ ] make all things disposable
-[ ] documentation
-[ ] check async seriality
-[ ] pass on results to next func?
-[ ] pass filename to run easily scripts
+- [ ] use for autoruns onDidChangeWorkspaceFolders
+- [ ] remove terminals before create new
+- [ ] make all things disposable
+- [ ] documentation
+- [ ] check async seriality
+- [ ] pass on results to next func?
+- [ ] pass filename to run easily scripts
