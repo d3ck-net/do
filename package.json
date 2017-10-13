@@ -16,19 +16,36 @@
   ],
   "main": "./extension",
   "contributes": {
+    "commands":[
+      {
+        "command": "do",
+        "title":"do",
+        "category": "core"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "Macros configuration",
       "properties": {
-        "macros": {},
-        "macro": {
-          "defaultType": {}
+        "do.defaultType": {
+          "type":"string",
+          "default":"terminal",
+          "description": "the default action type to use when passing raw strings"
+        },
+        "do.macros":{
+          "type":"object",
+          "description": "define a map of actionLists to be used inside other actions"
+        },
+        "do.onStart":{
+          "type":"array",
+          "description": "a list of actions to run on startup"
         }
       }
     }
   },
   "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "webpack":"echo webpack"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.32",
