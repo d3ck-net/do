@@ -4,11 +4,16 @@
         {
             "label": "webpack",
             "type": "npm",
-            "script":"webpack",
+            "script": "webpack",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "type": "npm",
+            "script": "install",
+            "problemMatcher": []
         }
     ]
 }
