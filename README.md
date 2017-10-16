@@ -71,7 +71,8 @@ useage:
 }
 ```
 
-As we have learned, actions can be defined either as an `array` (a list of actions), an `object` (a specific type of action) or by simple `string`.
+As we have learned, actions can be defined either as an `array` (a list of actions), an `object`d
+ (a specific type of action) or by simple `string`.
 `string` actions are shorthands for regular actions and will be resolved in the following order:
 
 1. check if `string` matches a `macro`'s name and run the `macro`.
@@ -217,9 +218,11 @@ With power comes responsebility ;)
 Initial release of Do
 
 ### TODO
-- [ ] add simple watches
-- [ ] use for autoruns onDidChangeWorkspaceFolders
+- [ ] switch: language
+- [ ] focus last terminal and clear before reuse
 - [ ] remove terminals before create new ones
+- [ ] add simple watchers
+- [ ] use for autoruns onDidChangeWorkspaceFolders ?
 - [ ] make things disposable (save resources)
 - [ ] better documentation
 - [x] check async seriality
